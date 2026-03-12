@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <!-- Monitaroo Client -->
+        <service id="Monitaroo\Client" class="Monitaroo\Client" public="true">
+            <factory class="Monitaroo\Symfony\Factory\ClientFactory" method="create"/>
+            <argument>%monitaroo.api_key%</argument>
+            <argument>%monitaroo.endpoint%</argument>
+            <argument>%monitaroo.service%</argument>
+            <argument>%monitaroo.environment%</argument>
+            <argument>%monitaroo.host%</argument>
+            <argument>%monitaroo.batch_size%</argument>
+            <argument>%monitaroo.auto_flush%</argument>
+            <argument>%kernel.project_dir%</argument>
+            <argument>%kernel.environment%</argument>
+        </service>
+
+        <!-- Alias -->
+        <service id="monitaroo" alias="Monitaroo\Client" public="true"/>
+
+        <!-- Event Subscriber for auto-flush -->
+        <service id="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" class="Monitaroo\Symfony\EventSubscriber\FlushSubscriber">
+            <argument type="service" id="Monitaroo\Client"/>
+            <argument>%monitaroo.auto_flush%</argument>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <!-- Monolog Handler (optional) -->
+        <service id="Monitaroo\Symfony\Monolog\MonitarooHandler" class="Monitaroo\Symfony\Monolog\MonitarooHandler" public="true">
+            <argument type="service" id="Monitaroo\Client"/>
+        </service>
+        <service id="monitaroo.monolog_handler" alias="Monitaroo\Symfony\Monolog\MonitarooHandler" public="true"/>
+
+    </services>
+</container>

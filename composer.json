@@ -1,0 +1,44 @@
+{
+    "name": "monitaroo/monitaroo-symfony",
+    "description": "Official Monitaroo Bundle for Symfony - Logs, Metrics & Monitoring",
+    "keywords": ["monitaroo", "symfony", "bundle", "logging", "metrics", "monitoring", "observability"],
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "homepage": "https://github.com/Monitaroo/monitaroo-symfony",
+    "authors": [
+        {
+            "name": "Monitaroo",
+            "email": "support@monitaroo.com",
+            "homepage": "https://monitaroo.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "monitaroo/monitaroo": "^1.0 || ^2.0",
+        "symfony/framework-bundle": "^2.8 || ^3.4 || ^4.4 || ^5.4 || ^6.0 || ^7.0",
+        "symfony/config": "^2.8 || ^3.4 || ^4.4 || ^5.4 || ^6.0 || ^7.0",
+        "symfony/dependency-injection": "^2.8 || ^3.4 || ^4.4 || ^5.4 || ^6.0 || ^7.0"
+    },
+    "require-dev": {
+        "symfony/monolog-bundle": "^3.0 || ^4.0",
+        "phpunit/phpunit": "^8.0 || ^9.0 || ^10.0"
+    },
+    "suggest": {
+        "symfony/monolog-bundle": "To use Monitaroo as a Monolog handler"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monitaroo\\Symfony\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Monitaroo\\Symfony\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -22,8 +22,8 @@
         <!-- Alias -->
         <service id="monitaroo" alias="Monitaroo\Client" public="true"/>
 
-        <!-- Event Subscriber for auto-flush -->
-        <service id="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" class="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" public="false">
+        <!-- Event Subscriber for auto-flush (must be public for lazy-loading) -->
+        <service id="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" class="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" public="true">
             <argument type="service" id="Monitaroo\Client"/>
             <argument>%monitaroo.auto_flush%</argument>
             <tag name="kernel.event_subscriber"/>

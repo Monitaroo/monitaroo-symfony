@@ -5,8 +5,6 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="false" autoconfigure="false" public="false"/>
-
         <!-- Monitaroo Client -->
         <service id="Monitaroo\Client" class="Monitaroo\Client" public="true">
             <factory class="Monitaroo\Symfony\Factory\ClientFactory" method="create"/>
@@ -17,7 +15,7 @@
             <argument>%monitaroo.host%</argument>
             <argument>%monitaroo.batch_size%</argument>
             <argument>%monitaroo.auto_flush%</argument>
-            <argument>%kernel.project_dir%</argument>
+            <argument>%kernel.root_dir%</argument>
             <argument>%kernel.environment%</argument>
         </service>
 
@@ -25,7 +23,7 @@
         <service id="monitaroo" alias="Monitaroo\Client" public="true"/>
 
         <!-- Event Subscriber for auto-flush -->
-        <service id="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" class="Monitaroo\Symfony\EventSubscriber\FlushSubscriber">
+        <service id="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" class="Monitaroo\Symfony\EventSubscriber\FlushSubscriber" public="false">
             <argument type="service" id="Monitaroo\Client"/>
             <argument>%monitaroo.auto_flush%</argument>
             <tag name="kernel.event_subscriber"/>

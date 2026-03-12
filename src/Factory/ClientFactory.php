@@ -22,7 +22,7 @@ class ClientFactory
      * @param string|null $host
      * @param int $batchSize
      * @param bool $autoFlush
-     * @param string $projectDir
+     * @param string $rootDir kernel.root_dir (app/ in Symfony 2.8, or project_dir in newer)
      * @param string $kernelEnvironment
      * @return Client
      */
@@ -34,11 +34,14 @@ class ClientFactory
         $host,
         $batchSize,
         $autoFlush,
-        $projectDir,
+        $rootDir,
         $kernelEnvironment
     ) {
         // Default service name from project directory
+        // In Symfony 2.8, root_dir is /path/to/project/app
+        // In Symfony 4+, it would be project_dir
         if (empty($service)) {
+            $projectDir = dirname($rootDir); // Go up from app/ to project root
             $service = basename($projectDir);
         }
 
